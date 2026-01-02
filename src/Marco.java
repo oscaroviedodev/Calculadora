@@ -2,6 +2,8 @@ import javax.swing.JFrame;
 
 public class Marco extends JFrame{
     
+    LaminaPrincipal miLaminaPrincipal = new LaminaPrincipal();
+    
     public Marco() {
         this.setLocation(1200, 200);
         this.setSize(300, 450);
@@ -9,6 +11,7 @@ public class Marco extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         
-        //falta crear coomit
+        this.add(miLaminaPrincipal);
+        
     }
 }
