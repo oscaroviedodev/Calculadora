@@ -70,6 +70,24 @@ public class LaminaBotones extends JPanel{
         multiplicacion.addActionListener(logicaOperdador);
         division.addActionListener(logicaOperdador);
         
+        igual.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                laminaPantalla.pantalla.setText(String.valueOf(resultado));                
+            }
+        });
+        
+        limpiar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                laminaPantalla.pantalla.setText("0");
+                numeroEscuchado = 0;
+                numeroCapturado = 0;
+                operacion = 0;
+                resultado = 0;                
+            }
+        });
+        
     }   
     
     public class LogicaNumeros implements ActionListener{
@@ -92,10 +110,15 @@ public class LaminaBotones extends JPanel{
             switch (operacion) {
                 case 1:
                     resultado = numeroCapturado + numeroEscuchado;
-                    System.out.println("Resultado: " + resultado);
+                    System.out.println("Resultado suma: " + resultado);
                     break;
-            }  
-            
+                    
+                case 2:
+                    resultado = numeroCapturado - numeroEscuchado;
+                    System.out.println("resultado resta: " + resultado);
+                    break;
+                
+            }            
         }
     }
     
@@ -104,7 +127,7 @@ public class LaminaBotones extends JPanel{
         @Override
         public void actionPerformed(ActionEvent e) {
             
-            // Al oprimir en un operador guarda numero y limpia pantalla ----------------
+            // Al oprimir en un operador guarda numero y limpia pantalla
             laminaPantalla.pantalla.setText("0");
             if (numeroCapturado == 0) {
                 numeroCapturado = numeroEscuchado;
@@ -116,8 +139,11 @@ public class LaminaBotones extends JPanel{
             // Sellecciona la opearacion que se ejecutara en segundo plano
             if (e.getSource() == suma) {
                 operacion = 1;
-            }
-             
+                
+            } if (e.getSource() == resta) {
+                operacion = 2;                
+            } 
+            
         }
     }
 }
