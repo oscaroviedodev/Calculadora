@@ -1,4 +1,6 @@
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
@@ -22,6 +24,15 @@ public class LaminaBotones extends JPanel{
     JButton division = new JButton("/");
     JButton limpiar = new JButton("C");
     
+    LaminaPantalla laminaPantalla = new LaminaPantalla();
+    LogicaNumeros logicaNumeros = new LogicaNumeros();
+    logicaOperdador logicaOperdador = new logicaOperdador();
+    double numeroEscuchado;
+    double numeroCapturado;
+    int operacion = 0;
+    double resultado = 0;
+    
+    
     public LaminaBotones() {
         this.setLayout(new GridLayout(5, 4));
         
@@ -41,6 +52,72 @@ public class LaminaBotones extends JPanel{
         this.add(cero);
         this.add(igual);
         this.add(division);
-        this.add(limpiar);
+        this.add(limpiar);  
+        
+        uno.addActionListener(logicaNumeros);
+        dos.addActionListener(logicaNumeros);
+        tres.addActionListener(logicaNumeros);
+        cuatro.addActionListener(logicaNumeros);
+        cinco.addActionListener(logicaNumeros);
+        seis.addActionListener(logicaNumeros);
+        siete.addActionListener(logicaNumeros);
+        ocho.addActionListener(logicaNumeros);
+        nueve.addActionListener(logicaNumeros);
+        cero.addActionListener(logicaNumeros);
+        
+        suma.addActionListener(logicaOperdador);
+        resta.addActionListener(logicaOperdador);
+        multiplicacion.addActionListener(logicaOperdador);
+        division.addActionListener(logicaOperdador);
+        
+    }   
+    
+    public class LogicaNumeros implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            // Quitar el 0 de la pantalla
+            if (laminaPantalla.pantalla.getText().equals("0")) {
+                laminaPantalla.pantalla.setText("");
+            }
+            // Establecer numero en pantalla
+            laminaPantalla.pantalla.setText(laminaPantalla.pantalla.getText() + e.getActionCommand());
+            
+            // Capturar numero pantalla
+            numeroEscuchado = Double.parseDouble(laminaPantalla.pantalla.getText());
+            System.out.println("numero escuchado: " + numeroEscuchado);
+ 
+            // Operaciones en segundo plano
+            switch (operacion) {
+                case 1:
+                    resultado = numeroCapturado + numeroEscuchado;
+                    System.out.println("Resultado: " + resultado);
+                    break;
+            }  
+            
+        }
+    }
+    
+    public class logicaOperdador implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            // Al oprimir en un operador guarda numero y limpia pantalla ----------------
+            laminaPantalla.pantalla.setText("0");
+            if (numeroCapturado == 0) {
+                numeroCapturado = numeroEscuchado;
+            } else {
+                numeroCapturado = resultado;
+            }                       
+            System.out.println("numero capturado: " + numeroCapturado);
+            
+            // Sellecciona la opearacion que se ejecutara en segundo plano
+            if (e.getSource() == suma) {
+                operacion = 1;
+            }
+             
+        }
     }
 }

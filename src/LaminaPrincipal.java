@@ -10,5 +10,7 @@ public class LaminaPrincipal extends JPanel{
         this.setLayout(new BorderLayout());
         this.add(miLaminaPantalla, BorderLayout.NORTH);
         this.add(miLaminaBotones, BorderLayout.CENTER);
+        
+        this.miLaminaBotones.laminaPantalla = miLaminaPantalla;
     }
 }
