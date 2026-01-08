@@ -72,7 +72,7 @@ public class LaminaBotones extends JPanel{
         
         igual.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { // falta validacion cuando se da igual
                 laminaPantalla.pantalla.setText(String.valueOf(resultado));                
             }
         });
@@ -86,8 +86,7 @@ public class LaminaBotones extends JPanel{
                 operacion = 0;
                 resultado = 0;                
             }
-        });
-        
+        });        
     }   
     
     public class LogicaNumeros implements ActionListener{
@@ -96,7 +95,7 @@ public class LaminaBotones extends JPanel{
         public void actionPerformed(ActionEvent e) {
             
             // Quitar el 0 de la pantalla
-            if (laminaPantalla.pantalla.getText().equals("0")) {
+            if (laminaPantalla.pantalla.getText().equals("0") || laminaPantalla.pantalla.getText().equals("Error")) {
                 laminaPantalla.pantalla.setText("");
             }
             // Establecer numero en pantalla
@@ -108,6 +107,7 @@ public class LaminaBotones extends JPanel{
  
             // Operaciones en segundo plano
             switch (operacion) {
+                
                 case 1:
                     resultado = numeroCapturado + numeroEscuchado;
                     System.out.println("Resultado suma: " + resultado);
@@ -117,7 +117,24 @@ public class LaminaBotones extends JPanel{
                     resultado = numeroCapturado - numeroEscuchado;
                     System.out.println("resultado resta: " + resultado);
                     break;
-                
+                 
+                case 3:
+                    resultado = numeroCapturado * numeroEscuchado;
+                    System.out.println("resultado multiplicacion: " + resultado);
+                    break;
+                    
+                case 4:
+                    if (numeroEscuchado != 0) {
+                        resultado = numeroCapturado / numeroEscuchado;
+                    } else {
+                        laminaPantalla.pantalla.setText("Error");
+                        operacion = 0;
+                        numeroCapturado = 0;
+                        resultado = 0;
+                    }
+                    
+                    System.out.println("resultado division: " + resultado);
+                    break;  
             }            
         }
     }
@@ -141,9 +158,14 @@ public class LaminaBotones extends JPanel{
                 operacion = 1;
                 
             } if (e.getSource() == resta) {
-                operacion = 2;                
-            } 
-            
+                operacion = 2;   
+                
+            } if (e.getSource() == multiplicacion) {
+                operacion = 3;
+                
+            }if (e.getSource() == division) {
+                operacion = 4;
+            }            
         }
     }
 }
