@@ -10,9 +10,9 @@ public class LaminaPantalla extends JPanel{
     public LaminaPantalla() {
         this.add(pantalla);        
         pantalla.setHorizontalAlignment(JTextField.RIGHT); 
-        pantalla.setPreferredSize(new Dimension(285, 30));
-        pantalla.setFont(new Font("",Font.BOLD,20));
-        pantalla.setEnabled(false);
-
+        pantalla.setPreferredSize(new Dimension(285, 50));
+        pantalla.setFont(new Font("",Font.BOLD,35));
+        pantalla.setFocusable(false);
+        
     }
 }

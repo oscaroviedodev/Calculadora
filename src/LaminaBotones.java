@@ -34,24 +34,24 @@ public class LaminaBotones extends JPanel{
     
     
     public LaminaBotones() {
-        this.setLayout(new GridLayout(5, 4));
+        this.setLayout(new GridLayout(5, 4, 5, 5));
         
-        this.add(uno);
-        this.add(dos);
-        this.add(tres);
-        this.add(suma);
-        this.add(cuatro);
-        this.add(cinco);
-        this.add(seis);
-        this.add(resta);
         this.add(siete);
         this.add(ocho);
         this.add(nueve);
-        this.add(multiplicacion);
-        this.add(punto);
-        this.add(cero);
-        this.add(igual);
         this.add(division);
+        this.add(cuatro);
+        this.add(cinco);
+        this.add(seis);
+        this.add(multiplicacion);        
+        this.add(uno);
+        this.add(dos);
+        this.add(tres);                
+        this.add(resta);
+        this.add(cero);        
+        this.add(punto);        
+        this.add(igual);
+        this.add(suma);
         this.add(limpiar);  
         
         uno.addActionListener(logicaNumeros);
@@ -86,6 +86,7 @@ public class LaminaBotones extends JPanel{
                 operacion = 0;
                 resultado = 0;                
             }
+
         });
 
         punto.addActionListener(new ActionListener() {
@@ -114,6 +115,9 @@ public class LaminaBotones extends JPanel{
                 }
             }
         });
+
+ 
+
     }   
     
     public class LogicaNumeros implements ActionListener{
