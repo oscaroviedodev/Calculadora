@@ -86,7 +86,34 @@ public class LaminaBotones extends JPanel{
                 operacion = 0;
                 resultado = 0;                
             }
-        });        
+        });
+
+        punto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                // Quita el cero de la pantalla
+                if (laminaPantalla.pantalla.getText().equals("0") || laminaPantalla.pantalla.getText().equals("Error")) {
+                    laminaPantalla.pantalla.setText("");
+                }
+                
+                boolean estado = false;
+                String numeroPantalla = laminaPantalla.pantalla.getText();
+                
+                // Verifica si el . se encuentra en el numero de la pantalla
+                for(int i = 0; i < numeroPantalla.length(); i++) {
+                    if (numeroPantalla.charAt(i) == '.') {
+                        estado = true;
+                    }
+                }
+                
+                if (estado) {
+                    laminaPantalla.pantalla.setText(laminaPantalla.pantalla.getText() + "");
+                } else {
+                    laminaPantalla.pantalla.setText(laminaPantalla.pantalla.getText() + ".");
+                }
+            }
+        });
     }   
     
     public class LogicaNumeros implements ActionListener{
