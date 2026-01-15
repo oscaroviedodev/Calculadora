@@ -31,6 +31,7 @@ public class LaminaBotones extends JPanel{
     double numeroCapturado;
     int operacion = 0;
     double resultado = 0;
+    boolean estadoIgual = false;
     
     
     public LaminaBotones() {
@@ -70,13 +71,17 @@ public class LaminaBotones extends JPanel{
         multiplicacion.addActionListener(logicaOperdador);
         division.addActionListener(logicaOperdador);
         
+        // Operacion con boton igual
         igual.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { // falta validacion cuando se da igual
-                laminaPantalla.pantalla.setText(String.valueOf(resultado));                
+            public void actionPerformed(ActionEvent e) {
+                laminaPantalla.pantalla.setText(String.valueOf(resultado));  
+                estadoIgual = true;
+                operacion = 0;
             }
         });
         
+        // Operacion con boton limpiar
         limpiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,14 +93,15 @@ public class LaminaBotones extends JPanel{
             }
 
         });
-
+        
+        // Operacion con boton punto
         punto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
                 // Quita el cero de la pantalla
                 if (laminaPantalla.pantalla.getText().equals("0") || laminaPantalla.pantalla.getText().equals("Error")) {
-                    laminaPantalla.pantalla.setText("");
+                    laminaPantalla.pantalla.setText("");                    
                 }
                 
                 boolean estado = false;
@@ -120,15 +126,23 @@ public class LaminaBotones extends JPanel{
 
     }   
     
+    // Operacion con botones numericos
     public class LogicaNumeros implements ActionListener{
         
         @Override
         public void actionPerformed(ActionEvent e) {
             
             // Quitar el 0 de la pantalla
-            if (laminaPantalla.pantalla.getText().equals("0") || laminaPantalla.pantalla.getText().equals("Error")) {
+            if (laminaPantalla.pantalla.getText().equals("0") || laminaPantalla.pantalla.getText().equals("Error") || estadoIgual == true) {
                 laminaPantalla.pantalla.setText("");
+                
+                // para poder realizar operaciones seguidas ej: 5+5=10 4+4=8 y no moleste a las operaciones consequtivas 5+5=10+5=15
+                if (estadoIgual == true) {                    
+                    numeroCapturado = 0;
+                    estadoIgual = false; 
+                }               
             }
+            
             // Establecer numero en pantalla
             laminaPantalla.pantalla.setText(laminaPantalla.pantalla.getText() + e.getActionCommand());
             
@@ -170,21 +184,26 @@ public class LaminaBotones extends JPanel{
         }
     }
     
+    // Operacion con botones de operaciones
     public class logicaOperdador implements ActionListener {
         
         @Override
         public void actionPerformed(ActionEvent e) {
             
+            estadoIgual = false;
+            
             // Al oprimir en un operador guarda numero y limpia pantalla
             laminaPantalla.pantalla.setText("0");
+            
             if (numeroCapturado == 0) {
                 numeroCapturado = numeroEscuchado;
+                
             } else {
                 numeroCapturado = resultado;
             }                       
             System.out.println("numero capturado: " + numeroCapturado);
             
-            // Sellecciona la opearacion que se ejecutara en segundo plano
+            // Selecciona la opearacion que se ejecutara en segundo plano
             if (e.getSource() == suma) {
                 operacion = 1;
                 
