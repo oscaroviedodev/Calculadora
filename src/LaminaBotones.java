@@ -1,6 +1,7 @@
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
@@ -166,7 +167,12 @@ public class LaminaBotones extends JPanel{
                     
                 case 4:
                     if (numeroEscuchado != 0) {
-                        resultado = numeroCapturado / numeroEscuchado;
+                        
+                        // Formateado el resultado para que aparezcan 8 decimales
+                        double resultadoSinFormatear = numeroCapturado / numeroEscuchado;
+                        String resultadoFormateado = String.format(Locale.US, "%.8f", resultadoSinFormatear);
+                        
+                        resultado = Double.parseDouble(resultadoFormateado);
                     } else {
                         laminaPantalla.pantalla.setText("Error");
                         operacion = 0;
