@@ -1,9 +1,11 @@
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import java.util.List;
 
 public class LaminaBotones extends JPanel{
     
@@ -26,6 +28,11 @@ public class LaminaBotones extends JPanel{
     JButton limpiar = new JButton("C");
     JButton eliminarCaracter = new JButton("←");
     
+    List<JButton> listaBotones = List.of(
+            uno, dos, tres, suma, cuatro, cinco, seis, resta, siete, ocho,
+            nueve, multiplicacion, punto, cero, igual, division, limpiar, eliminarCaracter            
+    );
+    
     LaminaPantalla laminaPantalla = new LaminaPantalla();
     LogicaNumeros logicaNumeros = new LogicaNumeros();
     logicaOperdador logicaOperdador = new logicaOperdador();
@@ -33,30 +40,13 @@ public class LaminaBotones extends JPanel{
     double numeroCapturado;
     int operacion = 0;
     double resultado = 0;
-    boolean estadoIgual = false;
-    
+    boolean estadoIgual = false;    
     
     public LaminaBotones() {
+        
         this.setLayout(new GridLayout(5, 4, 5, 5));
         
-        this.add(siete);
-        this.add(ocho);
-        this.add(nueve);
-        this.add(division);
-        this.add(cuatro);
-        this.add(cinco);
-        this.add(seis);
-        this.add(multiplicacion);        
-        this.add(uno);
-        this.add(dos);
-        this.add(tres);                
-        this.add(resta);
-        this.add(cero);        
-        this.add(punto);        
-        this.add(igual);
-        this.add(suma);
-        this.add(limpiar);  
-        this.add(eliminarCaracter);  
+        establecerCaracteristicasBotones(listaBotones);
         
         uno.addActionListener(logicaNumeros);
         dos.addActionListener(logicaNumeros);
@@ -94,7 +84,6 @@ public class LaminaBotones extends JPanel{
                 operacion = 0;
                 resultado = 0;                
             }
-
         });
         
         // Operacion con boton punto
@@ -206,16 +195,16 @@ public class LaminaBotones extends JPanel{
                     String resultadoFormateado = String.format(Locale.US, "%.8f", resultadoSinFormatear);
 
                     resultado = Double.parseDouble(resultadoFormateado);
+                    
                 } else {
                     laminaPantalla.pantalla.setText("Error");
                     operacion = 0;
                     numeroCapturado = 0;
                     resultado = 0;
                 }
-
                 System.out.println("resultado division: " + resultado);
                 break;  
-            }            
+        }            
     }
     
     // Operacion con botones de operaciones
@@ -250,6 +239,22 @@ public class LaminaBotones extends JPanel{
             }if (e.getSource() == division) {
                 operacion = 4;
             }            
+        }
+    }
+    
+    private void establecerCaracteristicasBotones(List<JButton> botones) {
+        
+        for (JButton boton : botones) {
+            this.add(boton);
+            boton.setFocusPainted(false);
+            boton.setRolloverEnabled(false);
+            
+            if (boton == suma || boton == resta || boton == multiplicacion || boton == division) {
+                boton.setFont(new Font("", Font.BOLD, 13));  
+                
+            } else {
+                boton.setFont(new Font("", Font.PLAIN, 13));
+            }
         }
     }
 }

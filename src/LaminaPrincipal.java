@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class LaminaPrincipal extends JPanel{
@@ -10,6 +11,7 @@ public class LaminaPrincipal extends JPanel{
         this.setLayout(new BorderLayout());
         this.add(miLaminaPantalla, BorderLayout.NORTH);
         this.add(miLaminaBotones, BorderLayout.CENTER);
+        this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
         this.miLaminaBotones.laminaPantalla = miLaminaPantalla;
     }
