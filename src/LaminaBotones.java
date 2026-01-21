@@ -68,7 +68,15 @@ public class LaminaBotones extends JPanel{
         igual.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                laminaPantalla.pantalla.setText(String.valueOf(resultado));  
+                
+                if ((resultado % 2) == 0) {
+                    int resultadoEntero = (int)resultado;
+                    laminaPantalla.pantalla.setText(String.valueOf(resultadoEntero));
+                    
+                } else {
+                    laminaPantalla.pantalla.setText(String.valueOf(resultado));
+                }
+                  
                 estadoIgual = true;
                 operacion = 0;
             }
