@@ -24,6 +24,7 @@ public class LaminaBotones extends JPanel{
     JButton igual = new JButton("=");
     JButton division = new JButton("/");
     JButton limpiar = new JButton("C");
+    JButton eliminarCaracter = new JButton("←");
     
     LaminaPantalla laminaPantalla = new LaminaPantalla();
     LogicaNumeros logicaNumeros = new LogicaNumeros();
@@ -55,6 +56,7 @@ public class LaminaBotones extends JPanel{
         this.add(igual);
         this.add(division);
         this.add(limpiar);  
+        this.add(eliminarCaracter);  
         
         uno.addActionListener(logicaNumeros);
         dos.addActionListener(logicaNumeros);
@@ -121,6 +123,32 @@ public class LaminaBotones extends JPanel{
                 }
             }
         });
+        
+        // operacion con botone eliminarCaracter        
+        eliminarCaracter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String textoCapturado = laminaPantalla.pantalla.getText();
+                double numeroOptenido = 0;
+                
+                if (! laminaPantalla.pantalla.getText().equals("0")) { 
+                    
+                    if(textoCapturado.length() == 1 || estadoIgual == true) {
+                       laminaPantalla.pantalla.setText("0");
+                       numeroEscuchado = 0;
+                       System.out.println("Numero despues de eliminar caracter: " + numeroOptenido);
+                       
+                    } else {
+                        laminaPantalla.pantalla.setText(textoCapturado.substring(0, textoCapturado.length() - 1));
+                        numeroOptenido = Double.parseDouble(laminaPantalla.pantalla.getText());
+                        numeroEscuchado = numeroOptenido;
+                        obtenerResultado(operacion);
+                        System.out.println("Numero despues de eliminar caracter: " + numeroOptenido);
+                    }
+                }
+            }
+        });
+        
     }   
     
     // Operacion con botones numericos
@@ -147,43 +175,47 @@ public class LaminaBotones extends JPanel{
             numeroEscuchado = Double.parseDouble(laminaPantalla.pantalla.getText());
             System.out.println("numero escuchado: " + numeroEscuchado);
  
-            // Operaciones en segundo plano
-            switch (operacion) {
-                
-                case 1:
-                    resultado = numeroCapturado + numeroEscuchado;
-                    System.out.println("Resultado suma: " + resultado);
-                    break;
-                    
-                case 2:
-                    resultado = numeroCapturado - numeroEscuchado;
-                    System.out.println("resultado resta: " + resultado);
-                    break;
-                 
-                case 3:
-                    resultado = numeroCapturado * numeroEscuchado;
-                    System.out.println("resultado multiplicacion: " + resultado);
-                    break;
-                    
-                case 4:
-                    if (numeroEscuchado != 0) {
-                        
-                        // Formateado el resultado para que aparezcan 8 decimales
-                        double resultadoSinFormatear = numeroCapturado / numeroEscuchado;
-                        String resultadoFormateado = String.format(Locale.US, "%.8f", resultadoSinFormatear);
-                        
-                        resultado = Double.parseDouble(resultadoFormateado);
-                    } else {
-                        laminaPantalla.pantalla.setText("Error");
-                        operacion = 0;
-                        numeroCapturado = 0;
-                        resultado = 0;
-                    }
-                    
-                    System.out.println("resultado division: " + resultado);
-                    break;  
-            }            
+            obtenerResultado(operacion);
         }
+    }
+    
+    // Metodo operaciones en segundo plano
+    public void obtenerResultado(int op) {
+        switch (operacion) {
+                
+            case 1:
+                resultado = numeroCapturado + numeroEscuchado;
+                System.out.println("Resultado suma: " + resultado);
+                break;
+
+            case 2:
+                resultado = numeroCapturado - numeroEscuchado;
+                System.out.println("resultado resta: " + resultado);
+                break;
+
+            case 3:
+                resultado = numeroCapturado * numeroEscuchado;
+                System.out.println("resultado multiplicacion: " + resultado);
+                break;
+
+            case 4:
+                if (numeroEscuchado != 0) {
+
+                    // Formateado el resultado para que aparezcan 8 decimales
+                    double resultadoSinFormatear = numeroCapturado / numeroEscuchado;
+                    String resultadoFormateado = String.format(Locale.US, "%.8f", resultadoSinFormatear);
+
+                    resultado = Double.parseDouble(resultadoFormateado);
+                } else {
+                    laminaPantalla.pantalla.setText("Error");
+                    operacion = 0;
+                    numeroCapturado = 0;
+                    resultado = 0;
+                }
+
+                System.out.println("resultado division: " + resultado);
+                break;  
+            }            
     }
     
     // Operacion con botones de operaciones
