@@ -76,7 +76,7 @@ public class LaminaBotones extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 
                 // Formatea resultado si es entero o decimal
-                if ((resultado % 2) == 0) {
+                if ((resultado % 1) == 0) {
                     int resultadoEntero = (int)resultado;
                     laminaPantalla.pantalla.setText(String.valueOf(resultadoEntero));
                     
@@ -108,13 +108,13 @@ public class LaminaBotones extends JPanel{
                 
                 // Quita el cero de la pantalla
                 if (laminaPantalla.pantalla.getText().equals("0") || laminaPantalla.pantalla.getText().equals("Error")) {
-                    laminaPantalla.pantalla.setText("");                    
+                    laminaPantalla.pantalla.setText("0.");                    
                 }
                 
                 boolean estado = false;
                 String numeroPantalla = laminaPantalla.pantalla.getText();
                 
-                // Verifica si el . se encuentra en el numero de la pantalla
+                // Verifica si el punto se encuentra en el numero de la pantalla
                 for(int i = 0; i < numeroPantalla.length(); i++) {
                     if (numeroPantalla.charAt(i) == '.') {
                         estado = true;
@@ -123,6 +123,7 @@ public class LaminaBotones extends JPanel{
                 
                 if (estado) {
                     laminaPantalla.pantalla.setText(laminaPantalla.pantalla.getText() + "");
+                    
                 } else {
                     laminaPantalla.pantalla.setText(laminaPantalla.pantalla.getText() + ".");
                 }
@@ -204,7 +205,6 @@ public class LaminaBotones extends JPanel{
 
             case 4:
                 if (numeroEscuchado != 0) {
-
                     // Formateado el resultado para que aparezcan 8 decimales
                     double resultadoSinFormatear = numeroCapturado / numeroEscuchado;
                     String resultadoFormateado = String.format(Locale.US, "%.8f", resultadoSinFormatear);
@@ -290,7 +290,13 @@ public class LaminaBotones extends JPanel{
                     
                     @Override
                     public void mouseReleased(MouseEvent e) {
-                        boton.setBackground(new Color(64, 64, 64));
+                        // el if verifica si al soltar el clic se encuentra dentro de el area del boton y lo pinta
+                        if (boton.contains(e.getPoint())) {
+                            boton.setBackground(new Color(70, 70, 70));
+                            
+                        } else {
+                            boton.setBackground(new Color(64, 64, 64));
+                        }
                     } 
                 });
                 
@@ -317,7 +323,13 @@ public class LaminaBotones extends JPanel{
                     
                     @Override
                     public void mouseReleased(MouseEvent e) {
-                        boton.setBackground(new Color(235, 101, 54));
+                    // el if verifica si al soltar el clic se encuentra dentro de el area del boton y lo pinta                       
+                        if (boton.contains(e.getPoint())) {
+                            boton.setBackground(new Color(240, 116, 72));
+                            
+                        } else {
+                            boton.setBackground(new Color(235, 101, 54));
+                        }
                     } 
                 });
                 
@@ -344,7 +356,13 @@ public class LaminaBotones extends JPanel{
                     
                     @Override
                     public void mouseReleased(MouseEvent e) {
-                        boton.setBackground(new Color(84, 84, 84));
+                        // el if verifica si al soltar el clic se encuentra dentro de el area del boton y lo pinta
+                        if (boton.contains(e.getPoint())) {
+                            boton.setBackground(new Color(95, 94, 94));
+                            
+                        } else {
+                            boton.setBackground(new Color(84, 84, 84));
+                        }
                     }                    
                 });   
             }

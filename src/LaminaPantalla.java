@@ -10,17 +10,17 @@ public class LaminaPantalla extends JPanel{
     JTextField pantalla = new JTextField("0");
         
     public LaminaPantalla() {
-        this.add(pantalla);        
+        this.add(pantalla);
+        this.setBackground(new Color(70, 70, 70));
+        this.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 5, new Color(44, 45, 45)));        
+        
         pantalla.setHorizontalAlignment(JTextField.RIGHT); 
         pantalla.setPreferredSize(new Dimension(285, 50));
         pantalla.setFont(new Font("", Font.PLAIN, 40));
-        pantalla.setFocusable(false);
-        
-        this.setBackground(new Color(70, 70, 70));
+        pantalla.setFocusable(false);             
         pantalla.setBackground(new Color(70, 70, 70));
         pantalla.setForeground(Color.WHITE);
         pantalla.setBorder(null);
-        //this.setBorder(BorderFactory.createLineBorder(new Color(44, 45, 45), 5));
-        this.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 5, new Color(44, 45, 45)));
+        
     }
 }
