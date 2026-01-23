@@ -1,11 +1,15 @@
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Locale;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.util.List;
+import javax.swing.BorderFactory;
 
 public class LaminaBotones extends JPanel{
     
@@ -29,8 +33,8 @@ public class LaminaBotones extends JPanel{
     JButton eliminarCaracter = new JButton("←");
     
     List<JButton> listaBotones = List.of(
-            uno, dos, tres, suma, cuatro, cinco, seis, resta, siete, ocho,
-            nueve, multiplicacion, punto, cero, igual, division, limpiar, eliminarCaracter            
+        uno, dos, tres, suma, cuatro, cinco, seis, resta, siete, ocho,
+        nueve, multiplicacion, punto, cero, igual, division, limpiar, eliminarCaracter            
     );
     
     LaminaPantalla laminaPantalla = new LaminaPantalla();
@@ -45,6 +49,8 @@ public class LaminaBotones extends JPanel{
     public LaminaBotones() {
         
         this.setLayout(new GridLayout(5, 4, 5, 5));
+        this.setBackground(new Color(44, 45, 45));
+        this.setBorder(BorderFactory.createLineBorder(new Color(44, 45, 45), 5));
         
         establecerCaracteristicasBotones(listaBotones);
         
@@ -69,6 +75,7 @@ public class LaminaBotones extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 
+                // Formatea resultado si es entero o decimal
                 if ((resultado % 2) == 0) {
                     int resultadoEntero = (int)resultado;
                     laminaPantalla.pantalla.setText(String.valueOf(resultadoEntero));
@@ -253,16 +260,96 @@ public class LaminaBotones extends JPanel{
     private void establecerCaracteristicasBotones(List<JButton> botones) {
         
         for (JButton boton : botones) {
-            this.add(boton);
+            
             boton.setFocusPainted(false);
             boton.setRolloverEnabled(false);
+            boton.setBorder(null);
+            boton.setContentAreaFilled(false);
+            boton.setOpaque(true);
             
-            if (boton == suma || boton == resta || boton == multiplicacion || boton == division) {
-                boton.setFont(new Font("", Font.BOLD, 13));  
+            if (boton == suma || boton == resta || boton == multiplicacion || boton == division || boton == punto || boton == limpiar || boton == eliminarCaracter) {
+                boton.setFont(new Font("", Font.PLAIN, 18));
+                boton.setBackground(new Color(64, 64, 64));
+                boton.setForeground(Color.WHITE);
+                
+                boton.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        boton.setBackground(new Color(70, 70, 70));
+                    }
+                    
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        boton.setBackground(new Color(64, 64, 64));
+                    }
+                    
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        boton.setBackground(new Color(85, 85, 85));
+                    }
+                    
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        boton.setBackground(new Color(64, 64, 64));
+                    } 
+                });
+                
+            } else if (boton == igual) {
+                boton.setBackground(new Color(235, 101, 54));
+                boton.setFont(new Font("", Font.PLAIN, 18));
+                boton.setForeground(Color.WHITE);
+                
+                boton.addMouseListener(new MouseAdapter(){
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        boton.setBackground(new Color(240, 116, 72));
+                    }
+                    
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        boton.setBackground(new Color(235, 101, 54));
+                    }
+                    
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        boton.setBackground(new Color(244, 131, 89));
+                    }
+                    
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        boton.setBackground(new Color(235, 101, 54));
+                    } 
+                });
                 
             } else {
-                boton.setFont(new Font("", Font.PLAIN, 13));
+                boton.setFont(new Font("", Font.BOLD, 18));
+                boton.setBackground(new Color(84, 84, 85));
+                boton.setForeground(Color.WHITE);
+
+                boton.addMouseListener(new MouseAdapter(){
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        boton.setBackground(new Color(95, 94, 94));
+                    }
+                    
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        boton.setBackground(new Color(84, 84, 85));
+                    }
+                    
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        boton.setBackground(new Color(111, 111, 111));
+                    }
+                    
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        boton.setBackground(new Color(84, 84, 84));
+                    }                    
+                });   
             }
+            
+            this.add(boton);
         }
     }
 }
